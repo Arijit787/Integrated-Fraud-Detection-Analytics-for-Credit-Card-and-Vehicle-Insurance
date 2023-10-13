@@ -1,0 +1,135 @@
+Data Retrieval, Clean and Process, Transformation and Analysis, Iterate and Refine
+
+
+
+-- Total fraud happened
+
+select sum(Fraud)
+from fraud.credit_card_fraud;
+
+
+-- Find the NAME_CONTRACT_TYPE with total values
+
+select NAME_CONTRACT_TYPE, count(*) as total
+from fraud.credit_card_fraud
+group by NAME_CONTRACT_TYPE 
+order by total asc;
+
+-- INCOME_TYPE with values
+
+select INCOME_TYPE, count(*) as type_income
+from fraud.credit_card_fraud
+group by INCOME_TYPE 
+order by type_income asc;
+
+-- Find a particular values in REGION_RATING_CLIENT
+
+SELECT *
+FROM fraud.credit_card_fraud
+where  REGION_RATING_CLIENT > 2;
+
+
+
+-- Find out fraud.credit_card_fraud where  Amount > 100
+
+SELECT SK_ID_CURR
+FROM fraud.credit_card_fraud
+where  Amount > 100;
+
+
+-- Find out Fraud = 9 (highest fraud)
+
+SELECT SK_ID_CURR, COUNT(*) AS FraudCount
+FROM fraud.credit_card_fraud
+WHERE Fraud = 9
+GROUP BY SK_ID_CURR
+order by FraudCount asc ;
+
+
+-- Find out DAYS_EMPLOYED who does not have negative values
+
+select SK_ID_CURR
+FROM fraud.credit_card_fraud
+where DAYS_EMPLOYED > 0;
+
+
+-- Find out fraud cases with Gender
+
+SELECT CODE_GENDER, COUNT(*) as total_fraud_cases 
+FROM fraud.credit_card_fraud
+WHERE Fraud = 1 
+GROUP BY CODE_GENDER
+order by total_fraud_cases asc;
+
+
+-- Find out fraud cases with Weekdays
+
+SELECT WEEKDAY_APPR_PROCESS_START, COUNT(*) as total_fraud_cases 
+FROM fraud.credit_card_fraud 
+WHERE Fraud = 1 
+GROUP BY WEEKDAY_APPR_PROCESS_START;
+
+
+-- Find out fraud cases with types
+
+select TYPE_SUITE, count(*) as types
+FROM fraud.credit_card_fraud 
+where Fraud=1
+group by TYPE_SUITE;
+
+
+-- Joins
+
+SELECT *
+FROM credit_card_fraud
+CROSS JOIN vehicle_insurance_fraud;
+
+
+SELECT * FROM fraud.vehicle_insurance_fraud;
+
+
+select count(*) as total_fraud_cases
+from fraud.vehicle_insurance_fraud
+where FraudFound = 0;
+
+
+-- Find frauds with days 
+
+select DayOfWeekClaimed, count(*) as days
+from fraud.vehicle_insurance_fraud
+where FraudFound = 0
+group by DayOfWeekClaimed
+order by days asc;
+
+
+-- Select accidents_area
+
+select AccidentArea, count(*) as accidents_area
+from fraud.vehicle_insurance_fraud
+where FraudFound = 0
+group by AccidentArea
+order by accidents_area asc;
+
+
+-- Find out Average Days between Policy 
+
+select FraudFound, avg(Days_Policy_Accident) as days
+from fraud.vehicle_insurance_fraud
+group by FraudFound;
+
+
+-- Find out police_report
+
+select PoliceReportFiled, count(*) as police_report
+from fraud.vehicle_insurance_fraud
+group by PoliceReportFiled
+order by police_report asc;
+
+-- Find out witness
+
+select WitnessPresent, count(*) as witness
+from fraud.vehicle_insurance_fraud
+group by WitnessPresent
+order by witness asc;
+
+

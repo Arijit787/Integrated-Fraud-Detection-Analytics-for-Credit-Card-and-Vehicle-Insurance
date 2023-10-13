@@ -1,0 +1,49 @@
+
+
+import pandas as pd
+
+df=pd.read_csv('credit_card_fraud.csv')
+df.head(10)
+
+
+#Drop Unwanted columns
+
+
+x=df.drop(['FLAG_OWN_CAR', 'FLAG_OWN_CAR', 'CNT_CHILDREN', 'OBS_60_CNT_SOCIAL_CIRCLE', 'OBS_60_CNT_SOCIAL_CIRCLE',  'Unnamed: 32', 'AMT_REQ_CREDIT_BUREAU_DAY',
+          'AMT_REQ_CREDIT_BUREAU_YEAR', 'Unnamed: 35', 'Unnamed: 36', 'Unnamed: 37'],  axis='columns')
+
+x.head()
+
+
+
+df.fillna(0)
+df.head(10)
+
+df.dropna(axis=1)
+
+df.describe()
+
+#Fraud greater than 
+
+df[df.Fraud>=3]
+
+#type of Company
+
+df['Company'].unique()
+
+
+#type of Company
+
+df['Company'].unique()
+
+#age is greater than 18
+
+df[df['Age'] > 18]
+
+#print a particular columns
+
+
+df[['Gender','Age', 'FraudFound', 'PoliceReportFiled', 'WitnessPresent', 'AgentType']]
+df.head(12)
+
+
